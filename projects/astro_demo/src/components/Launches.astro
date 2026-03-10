@@ -1,0 +1,44 @@
+---
+// astro
+// thrid
+// own
+import { type APISpaceXResponse } from '../types/api'
+import CardLaunch from './CardLaunch.astro'
+const res = await fetch('https://api.spacexdata.com/v5/launches/query', {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        query: {},
+        options: {
+            sort: {
+                date_unix: 'asc'
+            },
+            limit: 5
+        }
+    })
+})
+const { docs: launches } = await res.json() as APISpaceXResponse
+// const data = JSON.stringify(await res.json())
+console.log(launches)
+---
+
+<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    {
+        launches.map(launch => (
+            // <article>
+            //     <img src={launch.links.patch.small} alt="" />
+            //     <h2>Launch #{launch.id}</h2>
+            // </article>
+            <CardLaunch
+                id={launch.id}
+                details={launch.name}
+                img={launch.links.patch.small}
+                success={launch.success}
+                flightNumber={launch.flight_number}
+            />
+        ))
+    }
+    <!-- <CardLaunch /> -->
+</div>
