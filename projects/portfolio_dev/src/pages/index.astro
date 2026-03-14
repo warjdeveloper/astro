@@ -1,18 +1,37 @@
 ---
+// astro
+// third
+// own
 import Layout from '../layouts/Layout.astro';
 import Badge from '../components/Badge.astro';
+import LinkedInIcon from '../icons/LinkedIn.astro';
+import GitHubIcon from '../icons/GitHub.astro';
+import MailIcon from '../icons/Mail.astro';
+import SocialPill from '../components/SocialPill.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// code
 ---
 
-<Layout title='Portfolio'>
+<Layout title='Portfolio de warj - Ingeniero de Sistemas, Desarrollador y Programador Back-end and Front-end con +2 años de experiencia' description='Contracta a warj para crear innovaciones tecnológicas.'>
 	<main>
         <section class="w-full lg:w-[740px] mx-auto py-44">
             <h1 class="text-white text-5xl font-bold flex flex-row gap-x-4 pb-10">Hey, soy warj <a href="https://www.linkedin.com/in/william-andres-ramirez-jimenez-b310a0206" target="_blank" rel="noopener"class="flex justify-center items-center"><Badge>Disponible para trabajar</Badge></a></h1>
             <h2 class="text-2xl text-wrap"><span>+2 años de experiencia.</span> <span class="text-yellow-200/90">Ingeniero de Sistemas, Desarrollador Back-end y Front-end.</span> <span class="text-red-200/90">De Pereira-Risaralda-Colombia.</span> <span class="opacity-75">Enfocado en crear Innovaciones Tecnológicas.</span></h2>
 
-            <ul></ul>
+            <nav class="flex gap-x-4 mt-8">
+                <SocialPill href="https://www.linkedin.com/in/william-andres-ramirez-jimenez-b310a0206">
+                    <LinkedInIcon class="w-6 h-6" />
+                    LinkedIn
+                </SocialPill>
+                <SocialPill href="https://github.com/andres0002">
+                    <GitHubIcon class="w-6 h-6" />
+                    GitHub
+                </SocialPill>
+                <SocialPill href="https://github.com/andres0002">
+                    <MailIcon class="w-6 h-6" />
+                    w.a.r.j.developer@gmail.com
+                </SocialPill>
+            </nav>
         </section>
     </main>
 </Layout>
