@@ -1,0 +1,49 @@
+---
+import img1 from '../assets/project1.jpeg';
+import img2 from '../assets/project2.jpeg';
+import JavaScriptIcon from '../icons/JavaScript.astro';
+import CSSIcon from '../icons/CSS.astro';
+import HTMLIcon from '../icons/HTML.astro';
+import PythonIcon from '../icons/Python.astro';
+import DjangoIcon from '../icons/Django.astro';
+import PostgreSQLIcon from '../icons/PostgreSQL.astro';
+
+const PROJECTS = [
+    {
+        title: 'Project 1',
+        description: 'Description of Project 1',
+        link: '#',
+        github: '#',
+        image: img1,
+        tags: [{icon: JavaScriptIcon, name: 'JavaScript'}, {icon: CSSIcon, name: 'CSS'}, {icon: HTMLIcon, name: 'HTML'}]
+    },
+    {
+        title: 'Project 2',
+        description: 'Description of Project 2',
+        link: '#',
+        github: '#',
+        image: img2,
+        tags: [{icon: PythonIcon, name: 'Python'},{icon: DjangoIcon, name: 'Django'}, {icon: PostgreSQLIcon, name: 'PostgreSQL'}]
+    }
+];
+---
+
+{
+    PROJECTS.map(project => (
+        <article class="ml-3 mb-10">
+            <h3 class="text-2xl font-semibold text-yellow-200 mb-2">{project.title}</h3>
+            <p class="text-lg mb-4 text-pretty">{project.description}</p>
+            <ul class="flex gap-4 mb-4 flex-wrap">
+                {project.tags.map(tag => (
+                    <li>
+                        <span class="flex gap-x-2 rounded-full bg-gray-800/50 px-3 py-1 text-sm text-gray-300 items-center">
+                            <tag.icon class="size-5 mr-2" />
+                            {tag.name}
+                        </span>
+                    </li>
+                ))}
+            </ul>
+            <img class="rounded shadow-2xl shadow-white/10 size-full" src={project.image.src} alt={`Captura de pantalla del proyecto ${project.title}`} />
+        </article>
+    ))
+}
