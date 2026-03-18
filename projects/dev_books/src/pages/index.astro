@@ -1,0 +1,51 @@
+---
+// astro
+import { getCollection } from 'astro:content';
+// third
+// own
+import Layout from '@/layouts/Layout.astro';
+// code
+const books = await getCollection('books');
+
+export const prerender = true;
+---
+
+<Layout title="Dev Books - A collection of programming books">
+	<main>
+		<h1 class="text-center text-7xl font-extrabold mb-24">Dev <span class="block">Books</span></h1>
+
+		<section aria-label="Libros recomendados para programadores">
+			<div class="px-4 mx-auto max-w-screen-xl">
+				<div class="grid gap-6 md:grid-cols-2">
+					{
+						books.map(book => {
+							const { data, id } = book;
+							const { title, author, img, readtime, description, buy } = data;
+
+							return (
+								<article class="flex">
+									<a href={`/book/${id}`} class="mb-2 xl-:mb-0 transition hover:scale-110">
+										<img transition:name={`img-${id}`} src={`/${img}`} alt={title} class="mr-5 w-48 rounded" />
+									</a>
+									
+									<div class="flex flex-col justify-center">
+										<h2 transition:name={`title-${id}`} class="mb-2 text-2xl font-bold leading-tight text-white">
+											{title}
+										</h2>
+										
+										<p class="mb-4 text-gray-300 max-w-sm">
+											{description}
+										</p>
+										<span class="text-xs">
+											Lectura en {readtime} minutos
+										</span>
+									</div>
+								</article>
+							)
+						})
+					}
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>

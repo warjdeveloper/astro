@@ -1,0 +1,66 @@
+---
+// astro
+import { getCollection, render } from 'astro:content';
+import { SHOW_BUY_BUTTON } from 'astro:env/server';
+// third
+import BuyButton from '@/components/BuyButton.astro';
+// own
+import Layout from '@/layouts/Layout.astro';
+import BookScore from '@/components/BookScore.astro';
+// code
+export const prerender = true;
+
+export async function getStaticPaths() {
+    const books = await getCollection('books');
+    return books.map(book => ({
+        params: { id: book.id },
+        props: { book },
+    }));
+}
+
+const { book } = Astro.props;
+const { id, data } = book;
+const { title, author, img, readtime, description, buy } = data;
+
+const { Content } = await render(book);
+---
+
+<Layout title={`${title} - Dev Books`}>
+    <div class="flex gap-6">
+        <aside class="flex flex-col items-center gap-4">
+            <a href="/" class="hover:underline opacity-70">Volver</a>
+            <img transition:name={`img-${id}`} src={`/${img}`} alt={title} class="rounded w-72 h-auto" />
+
+            <!-- <span class=text-xs" id="score"></span> -->
+            <BookScore server:defer id={id}>
+                <span slot="fallback" class="text-xs opacity-70">Puntuación: Cargando...</span>
+            </BookScore>
+            {
+                SHOW_BUY_BUTTON && buy && <BuyButton server:defer buy={buy}>
+                    <span slot="fallback">Jajajaja.</span>
+                </BuyButton>
+            }
+        </aside>
+
+        <main class="max-w-3xl">
+            <h1 transition:name={`title-${id}`} class="text-4xl font-bold mb-4">{title}</h1>
+            <div class="prose prose-invert">
+                <Content />
+            </div>
+        </main>
+    </div>
+</Layout>
+
+<!-- <script>
+    import { SCORE_API_ENDPOINT } from "astro:env/client";
+
+    const scoreElement = document.getElementById('score');
+
+    fetch(SCORE_API_ENDPOINT)
+        .then(res => res.text())
+        .then(scoreValue => {
+            if (scoreElement){
+                scoreElement.textContent = `Puntuación: ${scoreValue.trim()}/5`;
+            }
+        })
+</script> -->
