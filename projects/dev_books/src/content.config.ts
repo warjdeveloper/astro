@@ -1,5 +1,5 @@
-import { defineCollection } from "astro:content";
-import { z } from "astro/zod";
+import { defineCollection, z } from "astro:content";
+// import { z } from "astro/zod";
 import { glob } from "astro/loaders";
 
 const books = defineCollection({
@@ -11,8 +11,8 @@ const books = defineCollection({
         readtime: z.number(),
         description: z.string(),
         buy: z.object({
-            spain: z.url(),
-            usa: z.url(),
+            spain: z.string().url(),
+            usa: z.string().url(),
         }),
     }),
 });

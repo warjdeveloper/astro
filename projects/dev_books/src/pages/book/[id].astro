@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 
 const { book } = Astro.props;
 const { id, data } = book;
-const { title, author, img, readtime, description, buy } = data;
+const { title, img, buy } = data;
 
 const { Content } = await render(book);
 ---
@@ -31,13 +31,13 @@ const { Content } = await render(book);
             <a href="/" class="hover:underline opacity-70">Volver</a>
             <img transition:name={`img-${id}`} src={`/${img}`} alt={title} class="rounded w-72 h-auto" />
 
-            <!-- <span class=text-xs" id="score"></span> -->
+            <!-- <span class="text-xs" id="score"></span> -->
             <BookScore server:defer id={id}>
                 <span slot="fallback" class="text-xs opacity-70">Puntuación: Cargando...</span>
             </BookScore>
             {
                 SHOW_BUY_BUTTON && buy && <BuyButton server:defer buy={buy}>
-                    <span slot="fallback">Jajajaja.</span>
+                    <span slot="fallback">Buttom: Cargando...</span>
                 </BuyButton>
             }
         </aside>
